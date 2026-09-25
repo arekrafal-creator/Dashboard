@@ -1,0 +1,45 @@
+name: Zbuduj Dashboard (Windows .exe)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Pobierz kod z repozytorium
+        uses: actions/checkout@v4
+
+      - name: Zainstaluj Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.7.*'
+          modules: 'qtbase'
+
+      - name: Skonfiguruj projekt (CMake)
+        run: cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+
+      - name: Zbuduj projekt
+        run: cmake --build build --config Release
+
+      - name: Skopiuj biblioteki Qt obok pliku .exe (windeployqt)
+        shell: pwsh
+        run: |
+          $exePath = Get-ChildItem -Path build -Recurse -Filter "WarehouseDashboard.exe" | Select-Object -First 1
+          windeployqt $exePath.FullName
+
+      - name: Spakuj gotowy program
+        shell: pwsh
+        run: |
+          $exePath = Get-ChildItem -Path build -Recurse -Filter "WarehouseDashboard.exe" | Select-Object -First 1
+          $outDir = $exePath.DirectoryName
+          Compress-Archive -Path "$outDir\*" -DestinationPath "DashboardMagazynowy-Windows.zip"
+
+      - name: Udostepnij gotowy plik do pobrania
+        uses: actions/upload-artifact@v4
+        with:
+          name: DashboardMagazynowy-Windows
+          path: DashboardMagazynowy-Windows.zip
