@@ -1,0 +1,32 @@
+{
+  "_uwaga": "Ten plik jest teraz zarzadzany automatycznie przez program - dodawaj/edytuj/usuwaj panele przez menu 'Kwerendy > Zarzadzaj kwerendami...' w aplikacji. Mozesz go tez edytowac recznie ponizej, jesli wolisz - program wczyta zmiany przy nastepnym uruchomieniu.",
+
+  "refresh_interval_sec": 300,
+
+  "panels": [
+    {
+      "id": "pick_status",
+      "title": "Pick taski wg statusu (Released / Hold)",
+      "sql": "SELECT status AS Status, COUNT(*) AS Ilosc FROM pick_tasks WHERE status IN ('RELEASED', 'HOLD') GROUP BY status ORDER BY status",
+      "refresh_interval_sec": -1
+    },
+    {
+      "id": "replenishments",
+      "title": "Replenishmenty wg typu lokacji (skad -> dokad)",
+      "sql": "SELECT src.location_type AS Skad, dst.location_type AS Dokad, COUNT(*) AS Ilosc FROM replenishments r JOIN locations src ON r.source_location_id = src.location_id JOIN locations dst ON r.destination_location_id = dst.location_id GROUP BY src.location_type, dst.location_type ORDER BY Ilosc DESC",
+      "refresh_interval_sec": -1
+    },
+    {
+      "id": "productivity_by_hour",
+      "title": "Srednia produktywnosc pracownikow w ciagu dnia",
+      "sql": "SELECT DATEPART(HOUR, completed_at) AS Godzina, ROUND(AVG(lines_per_hour), 1) AS SredniaProduktywnosc FROM picker_activity WHERE completed_at >= '2026-09-01' AND completed_at < '2026-09-26' GROUP BY DATEPART(HOUR, completed_at) ORDER BY Godzina",
+      "refresh_interval_sec": -1
+    },
+    {
+      "id": "top_bottom_pickers",
+      "title": "3 najlepsi i 3 najslabsi pickerzy",
+      "sql": "WITH ranked AS ( SELECT employee_name AS Picker, ROUND(AVG(lines_per_hour), 1) AS Produktywnosc, RANK() OVER (ORDER BY AVG(lines_per_hour) DESC) AS rnk_top, RANK() OVER (ORDER BY AVG(lines_per_hour) ASC) AS rnk_bottom FROM picker_activity WHERE completed_at >= '2026-09-01' AND completed_at < '2026-09-26' GROUP BY employee_name ) SELECT Picker, Produktywnosc, CASE WHEN rnk_top <= 3 THEN 'TOP 3' ELSE 'DOL 3' END AS Grupa FROM ranked WHERE rnk_top <= 3 OR rnk_bottom <= 3 ORDER BY Produktywnosc DESC",
+      "refresh_interval_sec": -1
+    }
+  ]
+}

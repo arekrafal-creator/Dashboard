@@ -1,0 +1,168 @@
+/* =====================================================================
+   STYLE DASHBOARDU
+   To jest zwykly plik tekstowy (QSS, bardzo podobny do CSS).
+   Mozesz zmieniac kolory (#RRGGBB) i rozmiary czcionek bez znajomosci C++.
+   ===================================================================== */
+
+QMainWindow, QWidget#centralWidget {
+    background-color: #12161c;
+}
+
+/* --- Pasek gorny z zegarem i statusem polaczenia --- */
+QWidget#topBar {
+    background-color: #1a2029;
+    border-bottom: 2px solid #2a3444;
+}
+
+QLabel#appTitle {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+QLabel#clockLabel {
+    color: #7fd0ff;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+QLabel#connectionStatusOk {
+    color: #4be07a;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#connectionStatusError {
+    color: #ff5c5c;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* --- Panel (kafelek) pojedynczej kwerendy --- */
+QWidget#panelFrame {
+    background-color: #1a2029;
+    border: 1px solid #2a3444;
+    border-radius: 10px;
+}
+
+QLabel#panelTitle {
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 4px 2px;
+}
+
+QLabel#panelStatus {
+    color: #8a94a6;
+    font-size: 13px;
+}
+
+QLabel#panelStatusError {
+    color: #ff5c5c;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* --- Tabela z wynikami --- */
+QTableView {
+    background-color: #12161c;
+    alternate-background-color: #171c24;
+    color: #e6e9ef;
+    gridline-color: #2a3444;
+    font-size: 17px;
+    border: none;
+    selection-background-color: #2a3444;
+}
+
+QHeaderView::section {
+    background-color: #232b38;
+    color: #cfe3ff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px;
+    border: none;
+    border-bottom: 2px solid #3a4658;
+}
+
+QTableView::item {
+    padding: 4px;
+}
+
+QScrollBar:vertical {
+    background: #12161c;
+    width: 12px;
+}
+QScrollBar::handle:vertical {
+    background: #3a4658;
+    border-radius: 6px;
+}
+
+/* --- Pasek menu --- */
+QMenuBar {
+    background-color: #1a2029;
+    color: #e6e9ef;
+    font-size: 14px;
+    border-bottom: 1px solid #2a3444;
+}
+QMenuBar::item:selected {
+    background-color: #2a3444;
+}
+QMenu {
+    background-color: #1a2029;
+    color: #e6e9ef;
+    border: 1px solid #2a3444;
+}
+QMenu::item:selected {
+    background-color: #2a3444;
+}
+
+/* --- Okna dialogowe (Ustawienia polaczenia, Zarzadzanie kwerendami, itd.) --- */
+QDialog {
+    background-color: #171c24;
+    color: #e6e9ef;
+}
+QDialog QLabel {
+    color: #e6e9ef;
+}
+QLineEdit, QPlainTextEdit, QSpinBox, QComboBox {
+    background-color: #1a2029;
+    color: #e6e9ef;
+    border: 1px solid #3a4658;
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 14px;
+    selection-background-color: #2a3444;
+}
+QComboBox QAbstractItemView {
+    background-color: #1a2029;
+    color: #e6e9ef;
+    selection-background-color: #2a3444;
+}
+QListWidget {
+    background-color: #12161c;
+    color: #e6e9ef;
+    border: 1px solid #3a4658;
+    border-radius: 5px;
+    font-size: 14px;
+}
+QListWidget::item:selected {
+    background-color: #2a3444;
+}
+QPushButton {
+    background-color: #232b38;
+    color: #e6e9ef;
+    border: 1px solid #3a4658;
+    border-radius: 5px;
+    padding: 7px 14px;
+    font-size: 13px;
+}
+QPushButton:hover {
+    background-color: #2a3444;
+}
+QPushButton:pressed {
+    background-color: #3a4658;
+}
+QCheckBox {
+    color: #e6e9ef;
+    font-size: 13px;
+}
