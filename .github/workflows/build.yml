@@ -19,11 +19,17 @@ jobs:
           version: '6.7.3'
           arch: 'win64_msvc2019_64'
 
+      - name: Przygotuj srodowisko kompilatora MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Zainstaluj Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+
       - name: Skonfiguruj projekt (CMake)
-        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH="${{ env.QT_ROOT_DIR }}"
+        run: cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{ env.QT_ROOT_DIR }}"
 
       - name: Zbuduj projekt
-        run: cmake --build build --config Release
+        run: cmake --build build
 
       - name: Skopiuj biblioteki Qt obok pliku .exe (windeployqt)
         shell: pwsh
