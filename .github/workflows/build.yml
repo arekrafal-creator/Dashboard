@@ -16,11 +16,11 @@ jobs:
       - name: Zainstaluj Qt 6
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.7.*'
-          modules: 'qtbase'
+          version: '6.7.3'
+          arch: 'win64_msvc2019_64'
 
       - name: Skonfiguruj projekt (CMake)
-        run: cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH="${{ env.QT_ROOT_DIR }}"
 
       - name: Zbuduj projekt
         run: cmake --build build --config Release
