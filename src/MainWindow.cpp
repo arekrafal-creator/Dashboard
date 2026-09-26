@@ -20,6 +20,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QLayoutItem>
+#include <QStyle>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
